@@ -12,7 +12,7 @@
     "next": "15.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "typescript-crypto": "github:ArdentHQ/typescript-crypto#e8876a69702837e835f4062b09ade1d8b26b992a"
+    "typescript-crypto": "link:../typescript-crypto"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
