@@ -2,9 +2,23 @@
 
 import { useEffect, useState } from 'react';
 
-import { TransferBuilder } from 'typescript-crypto';
+import { TransferBuilder } from '@arkecosystem/typescript-crypto';
+import { ITransactionBuilder, ITransferBuilder } from "@arkecosystem/typescript-crypto/types";
 
-export function TransferTransaction() {
+export async function getTransferTransaction({ passphrase, nonce }: { passphrase: string, nonce: number }): Promise<ITransactionBuilder<ITransferBuilder>> {
+  const builder = await TransferBuilder.new()
+    .value('10')
+    .recipientAddress('0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A')
+    .gasPrice('5000000000')
+    .gasLimit('200000')
+    .nonce(nonce);
+
+  await builder.sign(passphrase);
+
+  return builder;
+}
+
+export function TransferTransaction({ passphrase, nonce }: { passphrase: string, nonce: number }) {
   const [transactionData, setTransactionData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,14 +27,9 @@ export function TransferTransaction() {
     async function buildTransaction() {
       try {
         setLoading(true);
-        const builder = await TransferBuilder.new()
-          .value('10')
-          .recipientAddress('0xb693449AdDa7EFc015D87944EAE8b7C37EB1690A')
-          .gasPrice('5000000000')
-          .gasLimit('200000')
-          .nonce('1');
 
-        builder.sign('testing');
+        const builder = await getTransferTransaction({ passphrase, nonce });
+
         setTransactionData(builder.transaction.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An unknown error occurred');
