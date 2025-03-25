@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@arkecosystem/typescript-client": "^0.0.1",
+    "@arkecosystem/typescript-crypto": "^0.0.4",
     "next": "15.2.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "typescript-crypto": "link:../typescript-crypto"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
